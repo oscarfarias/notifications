@@ -1,0 +1,14 @@
+# Windows files
+[*.bat]
+end_of_line = lf
+
+[*.js]
+end_of_line = lf
+[*.json]
+end_of_line = lf
+[*.jsx]
+end_of_line = lf
+[*.ts]
+end_of_line = lf
+[*.tsx]
+end_of_line = lf

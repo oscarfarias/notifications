@@ -1,0 +1,14 @@
+{  
+  "eslint.enable": true,
+  "eslint.alwaysShowStatus": true,
+  "eslint.options": {
+    "extensions": [
+      ".html",
+      ".js",
+      ".jsx"
+    ]
+  },  
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}
