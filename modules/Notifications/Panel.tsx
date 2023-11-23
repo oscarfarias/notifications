@@ -1,8 +1,7 @@
 import { Paper, Typography, TextField, Grid, Button } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
-import { useNotificationStore } from './store'
-import { socketEvents } from 'common/config/constants'
-import { enqueueSnackbar } from 'notistack'
+
+import { usePanel } from './hooks/usePanel'
 const Panel = (): JSX.Element => {
   const {
     palette: {
@@ -10,35 +9,8 @@ const Panel = (): JSX.Element => {
     },
   } = useTheme()
 
-  const { socket, selectedDevicesIds, title, message, setTitle, setMessage } =
-    useNotificationStore((state) => state)
-
-  const sendNotification = (): void => {
-    if (socket) {
-      socket.emit(socketEvents.onSendNotification, {
-        devicesIds: selectedDevicesIds,
-        notification: {
-          title,
-          message,
-        },
-      })
-    } else {
-      enqueueSnackbar(
-        `Ocurrió un error al enviar la notificación, socket no conectado`,
-        {
-          variant: `error`,
-        },
-      )
-    }
-  }
-  const onChangeTitle = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setTitle(event.target.value)
-  }
-  const onChangeMessage = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ): void => {
-    setMessage(event.target.value)
-  }
+  const { sendNotification, onChangeTitle, onChangeMessage, title, message } =
+    usePanel()
 
   return (
     <Paper
@@ -53,20 +25,16 @@ const Panel = (): JSX.Element => {
       }}
     >
       <Typography fontWeight="bold" sx={{ color: primaryDark }}>
-        Enviar una notificación
+        Send notification
       </Typography>
       <Grid container gap={1} p={2} sx={{ flexDirection: `column` }}>
+        <TextField placeholder="Title" value={title} onChange={onChangeTitle} />
         <TextField
-          placeholder="Título"
-          value={title}
-          onChange={onChangeTitle}
-        />
-        <TextField
-          placeholder="Descripción"
+          placeholder="Message"
           value={message}
           onChange={onChangeMessage}
         />
-        <Button onClick={sendNotification}>Enviar</Button>
+        <Button onClick={sendNotification}>Send</Button>
       </Grid>
     </Paper>
   )

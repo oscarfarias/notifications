@@ -4,9 +4,6 @@ export const drawerWidth = 250
 export const socketEvents = {
   onConnection: `connection`,
   onConnect: `connect`,
-  onEstablishConnection: `establish-connection`,
-  onEstablishedConnection: `established-connection`,
-  onEstablishMasterConnection: `establish-master-connection`,
   onFetchDevices: `fetch-devices`,
   onSendNotification: `send-notification`,
   onNotificationReceived: `notification-received`,
