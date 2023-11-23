@@ -9,28 +9,12 @@ import {
   ListItemIcon,
   Grid,
 } from '@mui/material'
-import { useTheme } from '@mui/material/styles'
 import { DevicesProps } from './types'
-import { useNotificationStore } from './store'
+import { useDevices } from './hooks/useDevices'
 
 const Devices = ({ devicesIds }: DevicesProps): JSX.Element => {
-  const {
-    palette: {
-      custom: { primaryDark },
-    },
-  } = useTheme()
-
-  const { selectedDevicesIds, setSelectedDevicesIds } = useNotificationStore(
-    (state) => state,
-  )
-
-  const toggleSelectDevice = (deviceId: string): void => {
-    if (selectedDevicesIds.includes(deviceId)) {
-      setSelectedDevicesIds(selectedDevicesIds.filter((id) => id !== deviceId))
-    } else {
-      setSelectedDevicesIds([...selectedDevicesIds, deviceId])
-    }
-  }
+  const { theme, toggleSelectDevice, selectedDevicesIds } = useDevices()
+  const { primaryDark } = theme.palette.custom
 
   return (
     <Paper
@@ -45,7 +29,7 @@ const Devices = ({ devicesIds }: DevicesProps): JSX.Element => {
       }}
     >
       <Typography fontWeight="bold" sx={{ color: primaryDark }}>
-        Dispositivos conectados
+        Devices
       </Typography>
       <Grid container sx={{ overflowY: `auto` }}>
         <List

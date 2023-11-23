@@ -4,6 +4,12 @@ import { DefaultEventsMap } from 'socket.io/dist/typed-events'
 export interface DevicesProps {
   devicesIds: string[]
 }
+
+export interface NotificationProps {
+  title: string
+  message: string
+}
+
 export type NotificationState = {
   devicesIds: string[]
   selectedDevicesIds: string[]
