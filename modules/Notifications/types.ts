@@ -29,3 +29,6 @@ export type NotificationActions = {
 }
 
 export type NotificationStore = NotificationState & NotificationActions
+export interface useNotificationProps {
+  onNotificationReceived?: (notification: NotificationProps) => void
+}

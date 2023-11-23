@@ -8,11 +8,11 @@ import {
   socketPath,
 } from 'common/config/constants'
 import { useNotificationStore } from '../store'
-import { enqueueSnackbar } from 'notistack'
-import { NotificationProps } from '../types'
-import NotificationComponent from '../NotificationComponent'
 
-export const useNotification = () => {
+import { NotificationProps, useNotificationProps } from '../types'
+export const useNotification = ({
+  onNotificationReceived,
+}: useNotificationProps) => {
   const { setSocketId, devicesIds, setDevicesIds, setSocket } =
     useNotificationStore((state) => state)
 
@@ -35,10 +35,10 @@ export const useNotification = () => {
     )
     socket.on(
       socketEvents.onNotificationReceived,
-      ({ title, message }: NotificationProps) => {
-        enqueueSnackbar(NotificationComponent({ title, message }), {
-          variant: `success`,
-        })
+      (notification: NotificationProps) => {
+        if (onNotificationReceived) {
+          onNotificationReceived(notification)
+        }
       },
     )
     socket.on(socketEvents.onDisconnect, () => {

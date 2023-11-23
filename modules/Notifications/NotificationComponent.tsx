@@ -1,16 +1,12 @@
 import { NotificationProps } from './types'
-import { useTheme } from '@mui/material/styles'
 import { Grid, Typography } from '@mui/material'
+import palette from 'common/theme/palette'
 
 const NotificationComponent = ({
   title,
   message,
 }: NotificationProps): JSX.Element => {
-  const {
-    palette: {
-      custom: { primaryDark },
-    },
-  } = useTheme()
+  const { primaryDark } = palette.light.custom
   return (
     <Grid container sx={{ flexDirection: `column` }}>
       <Typography fontWeight="bold" sx={{ color: primaryDark }}>
